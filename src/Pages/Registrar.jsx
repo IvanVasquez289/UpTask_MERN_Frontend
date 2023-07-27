@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import Alerta from "../Components/Alerta";
+import axios from "axios"
 const Registrar = () => {
 
   const [nombre, setNombre] = useState('')
@@ -9,7 +10,7 @@ const Registrar = () => {
   const [repetirPasssword, setRepetirPassword] = useState('')
   const [alerta, setAlerta] = useState({})
 
-  const handleSubmit = e => {
+  const handleSubmit = async e => {
     e.preventDefault()
 
     if(nombre.trim() == "" || email.trim() == "" || password.trim() == "" || repetirPasssword.trim() == ""){
@@ -38,7 +39,14 @@ const Registrar = () => {
 
     //Si pasa todas las validaciones dejamos el alerta en un obj vacio para que no se muestre el componente
     setAlerta({})
-    console.log('creando...')
+    // Crear el usuario en la API
+   try {
+     const resultado = await axios.post('http://localhost:4000/api/usuarios',{nombre,email,password})
+     console.log(resultado)
+   } catch (error) {
+    console.log(error)
+   }
+
   }
 
   const {msj} = alerta;
