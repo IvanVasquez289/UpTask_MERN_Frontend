@@ -17,7 +17,28 @@ const Registrar = () => {
         msj: 'Todos los campos son obligatorios',
         error: true
       })
+      return
     }
+
+    if(password !== repetirPasssword){
+      setAlerta({
+        msj: 'Los Password no son iguales',
+        error: true
+      })
+      return
+    }
+
+    if(password.length < 6){
+      setAlerta({
+        msj: 'El Password es muy corto, agrega minimo 6 caracteres',
+        error: true
+      })
+      return
+    }
+
+    //Si pasa todas las validaciones dejamos el alerta en un obj vacio para que no se muestre el componente
+    setAlerta({})
+    console.log('creando...')
   }
 
   const {msj} = alerta;
