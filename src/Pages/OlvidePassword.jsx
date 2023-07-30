@@ -1,12 +1,32 @@
 import { Link } from "react-router-dom";
+import { useState } from "react";
+import Alerta from "../Components/Alerta";
+
 const OlvidePassword = () => {
+  const [email, setEmail] = useState('')
+  const [alerta, setAlerta] = useState({})
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+
+    if(email.trim() === "" || email.length < 6){
+      setAlerta({
+        msj: 'El email es obligatorio',
+        error: true
+      })
+      return
+    }
+  }
+
+  const {msj} = alerta;
   return (
     <>
       <h1 className=" text-sky-600 font-black text-6xl capitalize mt-10">
         Inicia sesión y administra tus {""}
         <span className=" text-gray-700">proyectos</span>
       </h1>
-      <form className=" bg-white p-10 shadow rounded-lg my-10">
+      {msj && <Alerta alerta={alerta}/>}
+      <form onSubmit={handleSubmit} className=" bg-white p-10 shadow rounded-lg my-10">
         <div className="mb-7">
           <label
             htmlFor="email"
@@ -19,6 +39,8 @@ const OlvidePassword = () => {
             id="email"
             placeholder="Email de registro"
             className="w-full mt-3 bg-gray-100 p-4 rounded-xl border"
+            value={email}
+            onChange={(e)=> setEmail(e.target.value)}
           />
         </div>
        
