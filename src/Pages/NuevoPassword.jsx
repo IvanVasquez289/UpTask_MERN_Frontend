@@ -6,6 +6,8 @@ import Alerta from "../Components/Alerta";
 const NuevoPassword = () => {
   const [alerta, setAlerta] = useState({})
   const [isTokenValid, setIsTokenValid] = useState(false)
+  const [password, setPassword] = useState('')
+  const [passwordModificado,setPasswordModificado] = useState(false)
   const {token} = useParams()
  
   useEffect(() => {
@@ -26,6 +28,34 @@ const NuevoPassword = () => {
     comprobarToken()
   }, [])
 
+  const handleSubmit = async  e => {
+    e.preventDefault()
+
+    if(password.length < 6){
+      setAlerta({
+        msj: 'El password debe ser minimo de 6 caracteres',
+        error: true
+      })
+      return
+    }
+
+    try {
+      const {data} = await axios.post(`${import.meta.env.VITE_BACKEND_URL}/api/usuarios/olvide-password/${token}`,{password})
+      setAlerta({
+        msj: data.msj,
+        error: false
+      })
+      setPasswordModificado(true)
+    } catch (error) {
+      setAlerta({
+        msj: error.response.data.msj,
+        error:true
+      })
+      setPasswordModificado(false)
+    }
+
+  }
+
   const {msj} = alerta
   
   return (
@@ -36,7 +66,7 @@ const NuevoPassword = () => {
       </h1>
       {msj && <Alerta alerta={alerta}/>}
       {isTokenValid && (
-        <form className=" bg-white p-10 shadow rounded-lg my-10">
+        <form onSubmit={handleSubmit} className=" bg-white p-10 shadow rounded-lg my-10">
           <div className="mb-7">
             <label
               htmlFor="password"
@@ -49,15 +79,30 @@ const NuevoPassword = () => {
               id="password"
               placeholder="Escribe tu nuevo password"
               className="w-full mt-3 bg-gray-100 p-4 rounded-xl border"
+              value={password}
+              onChange={e => setPassword(e.target.value)}
             />
           </div>
 
           <input
             type="submit"
-            value="Enviar Instrucciones"
-            className="w-full bg-sky-700 py-3 rounded-xl text-white font-bold uppercase cursor-pointer hover:bg-sky-800 transition-colors"
+            value="Guardar nuevo password"
+            disabled= {passwordModificado}
+            className={`
+              ${passwordModificado ? "hover:cursor-not-allowed bg-sky-300" : "hover:cursor-pointer hover:bg-sky-800 transition-colors"} 
+              w-full bg-sky-700 py-3 rounded-xl text-white font-bold uppercase  
+            `}
           />
         </form>
+      )}
+
+      {passwordModificado && (
+        <Link
+          to={"/"}
+          className="text-slate-500 uppercase block text-center text-sm my-3"
+        >
+          Ya tienes una cuenta? Inicia Sesión
+        </Link>
       )}
     </>
   );
