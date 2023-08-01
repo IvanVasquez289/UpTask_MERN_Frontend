@@ -38,7 +38,8 @@ const AuthProvider = ({children}) => {
     return (
         <AuthContext.Provider
             value={{
-                setAuth
+                setAuth,
+                auth
             }}
         >
             {children}
