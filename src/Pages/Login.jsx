@@ -1,12 +1,46 @@
-import { Link } from "react-router-dom";
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import Alerta from "../Components/Alerta";
+import clienteAxios from "../config/clienteAxios";
 const Login = () => {
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [alerta, setAlerta] = useState({})
+
+
+  const handleSubmit = async e => {
+    e.preventDefault()
+
+    if(email.trim() == "" || password.trim() == "" ){
+      setAlerta({
+        msj: "Todos los campos son obligatorios",
+        error: true
+      })
+      return
+    }
+
+    try {
+      const {data} = await clienteAxios.post('/usuarios/login',{email,password})
+      localStorage.setItem('token',data.token)
+      setAlerta({})
+    } catch (error) {
+      setAlerta({
+        msj: error.response.data.msj,
+        error: true
+      })
+    }
+  }
+
+  const {msj} = alerta;
   return (
     <>
       <h1 className=" text-sky-600 font-black text-6xl capitalize">
         Inicia sesión y administra tus {""}
         <span className=" text-gray-700">proyectos</span>
       </h1>
-      <form className=" bg-white p-10 shadow rounded-lg my-10">
+      
+      {msj && <Alerta alerta={alerta}/>}
+      <form onSubmit={handleSubmit} className=" bg-white p-10 shadow rounded-lg my-10">
           <div className="mb-5">
               <label
                 htmlFor="email"
@@ -19,6 +53,8 @@ const Login = () => {
                 id="email"
                 placeholder="Email de registro"
                 className="w-full mt-3 bg-gray-100 p-4 rounded-xl border"
+                value={email}
+                onChange={e => setEmail(e.target.value)}
               />
           </div>
           <div className="my-5">
@@ -33,6 +69,8 @@ const Login = () => {
                 id="password"
                 placeholder="Password de registro"
                 className="w-full mt-3 bg-gray-100 p-4 rounded-xl border"
+                value={password}
+                onChange={e => setPassword(e.target.value)}
               />
           </div>
 
