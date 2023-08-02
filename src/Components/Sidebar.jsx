@@ -1,0 +1,21 @@
+import { Link } from "react-router-dom"
+import useAuth from "../hooks/useAuth"
+const Sidebar = () => {
+
+  const {auth} = useAuth()
+
+  return (
+    <aside className="md:w-80 lg:w-96 px-5 py-10 ">
+        <p className="font-bold text-xl">Hola: {auth.nombre}</p>
+
+        <Link 
+            className="bg-sky-600 w-full block  text-white font-bold uppercase p-3 mt-4 rounded-md text-center" 
+            to="crear-proyecto"
+        >
+            Nuevo Proyecto
+        </Link>
+    </aside>
+  )
+}
+
+export default Sidebar

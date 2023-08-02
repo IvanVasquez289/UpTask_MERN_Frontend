@@ -11,6 +11,7 @@ import OlvidePassword from './Pages/OlvidePassword.jsx'
 import NuevoPassword from './Pages/NuevoPassword.jsx'
 import ConfirmarCuenta from './Pages/ConfirmarCuenta.jsx'
 import Proyectos from './Pages/Proyectos.jsx'
+import CrearProyecto from './Pages/CrearProyecto.jsx'
 
 // Context 
 import { AuthProvider } from './context/AuthProvider.jsx'
@@ -31,6 +32,7 @@ function App() {
 
           <Route path='/proyectos' element={<RutaProtegida/>}>
             <Route index element={<Proyectos/>}/>
+            <Route path='crear-proyecto' element={<CrearProyecto/>}/>
           </Route>
 
         </Routes>

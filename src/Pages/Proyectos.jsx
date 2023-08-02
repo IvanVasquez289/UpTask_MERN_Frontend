@@ -1,7 +1,12 @@
 
 const Proyectos = () => {
   return (
-    <div>Proyectos</div>
+    <>
+      <h1 className="font-black text-4xl">Proyectos</h1> 
+      <div>
+        
+      </div>
+    </>
   )
 }
 
