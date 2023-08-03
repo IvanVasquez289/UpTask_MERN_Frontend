@@ -29,6 +29,7 @@ const AuthProvider = ({children}) => {
             try {
                 const {data} = await clienteAxios('/usuarios/perfil',config)
                 setAuth(data)
+                // TODO: CUANDO ESCRIBIMOS CUALQUIER RUTA EN LA URL, NOS MANDA A /proyectos, solucionar eso
                 navigate('/proyectos')
             } catch (error) {
                 console.log(error.response.data.msj)
