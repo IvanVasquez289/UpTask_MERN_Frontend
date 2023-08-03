@@ -1,6 +1,6 @@
 import { useState, useEffect, createContext } from "react";
 import clienteAxios from "../config/clienteAxios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate , useLocation} from "react-router-dom";
 const AuthContext = createContext();
 
 const AuthProvider = ({children}) => {
@@ -9,6 +9,7 @@ const AuthProvider = ({children}) => {
     const [cargando,setCargando] = useState(true)
 
     const navigate = useNavigate()
+    const { pathname } = useLocation();
 
     useEffect(() => {
         const comprobarToken = async () => {
@@ -29,8 +30,12 @@ const AuthProvider = ({children}) => {
             try {
                 const {data} = await clienteAxios('/usuarios/perfil',config)
                 setAuth(data)
-                // TODO: CUANDO ESCRIBIMOS CUALQUIER RUTA EN LA URL, NOS MANDA A /proyectos, solucionar eso
-                navigate('/proyectos')
+                
+                const rutasPublicas = ["/", "/registrar", "/olvide-password", "/confirmar"];
+                if (rutasPublicas.includes(pathname)) {
+                  navigate("/proyectos");
+                }
+
             } catch (error) {
                 console.log(error.response.data.msj)
                 setAuth({})
