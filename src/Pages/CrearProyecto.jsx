@@ -5,7 +5,7 @@ const CrearProyecto = () => {
   return (
     <>
       <h1 className="font-black text-4xl">Crear Proyecto</h1> 
-      <div className='flex justify-center mt-5'>
+      <div className='mt-5'>
         <Formulario/>
       </div>
     </>

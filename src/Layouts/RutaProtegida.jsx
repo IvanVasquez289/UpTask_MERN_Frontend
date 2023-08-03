@@ -4,7 +4,7 @@ import Header from "../Components/Header"
 import Sidebar from "../Components/Sidebar"
 const RutaProtegida = () => {
   const {auth,cargando} = useAuth()
-  console.log(auth)
+  // console.log(auth)
 
   if(cargando){
     return (
