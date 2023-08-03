@@ -11,7 +11,7 @@ const Formulario = () => {
   const [cliente,setCliente] = useState('')
 
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
     if([nombre,descripcion,fechaEntrega,cliente].includes('')){
         handleAlerta({
@@ -22,7 +22,13 @@ const Formulario = () => {
     }
     
     // Pasar los datos al provider
-    submitProyecto({nombre,descripcion,fechaEntrega,cliente})
+    await submitProyecto({nombre,descripcion,fechaEntrega,cliente})
+
+    // Limpiar formulario al crearse el proyecto
+    setNombre('')
+    setDescripcion('')
+    setFechaEntrega('')
+    setCliente('')
   } 
 
   const {msj} = alerta;
