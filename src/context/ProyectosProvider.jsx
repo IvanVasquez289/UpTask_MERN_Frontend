@@ -69,6 +69,27 @@ const ProyectosProvider = ({children}) => {
             console.log(error)
         }
     } 
+
+    const obtenerProyecto = async (id) => {
+        const token = localStorage.getItem('token')
+        
+        if (!token) return;
+
+        const config = {
+            headers: {
+                "Content-Type": "Application/json",
+                Authorization: `Bearer ${token}`
+            }
+        }
+        
+        try {
+           const {data} = await clienteAxios(`/proyectos/${id}`,config)
+           console.log(data) 
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
     return(
         <ProyectosContext.Provider
             value={{
@@ -76,7 +97,8 @@ const ProyectosProvider = ({children}) => {
                 setAlerta,
                 alerta,
                 handleAlerta,
-                submitProyecto
+                submitProyecto,
+                obtenerProyecto
             }}
         >
             {children}
