@@ -1,4 +1,4 @@
-import { createContext, useState } from "react";
+import { createContext, useState , useEffect} from "react";
 import clienteAxios from "../config/clienteAxios";
 import {useNavigate} from 'react-router-dom'
 const ProyectosContext = createContext();
@@ -16,6 +16,30 @@ const ProyectosProvider = ({children}) => {
         }, 3000);
     }
 
+    useEffect(() => {
+        const obtenerProyectos = async () => {
+            try {
+                const token = localStorage.getItem('token')
+                if (!token) return;
+
+                const config = {
+                    headers: {
+                        "Content-Type": "Application/json",
+                        Authorization: `Bearer ${token}`
+                    }
+                }
+
+                const {data} = await clienteAxios('/proyectos',config)
+                setProyectos(data)
+
+            } catch (error) {
+                console.log(error)
+            }
+        }
+
+        obtenerProyectos()
+    }, [])
+    
     const submitProyecto = async (proyecto) => {
         const token = localStorage.getItem('token')
         

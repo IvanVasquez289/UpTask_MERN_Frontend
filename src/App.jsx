@@ -16,6 +16,7 @@ import CrearProyecto from './Pages/CrearProyecto.jsx'
 // Context 
 import { AuthProvider } from './context/AuthProvider.jsx'
 import {ProyectosProvider} from './context/ProyectosProvider.jsx'
+import Proyecto from './Pages/Proyecto.jsx'
 
 function App() {
   return (
@@ -36,6 +37,7 @@ function App() {
             <Route path='/proyectos' element={<RutaProtegida/>}>
               <Route index element={<Proyectos/>}/>
               <Route path='crear-proyecto' element={<CrearProyecto/>}/>
+              <Route path=':id' element={<Proyecto/>}/>
             </Route>
 
           </Routes>
