@@ -12,7 +12,7 @@ import NuevoPassword from './Pages/NuevoPassword.jsx'
 import ConfirmarCuenta from './Pages/ConfirmarCuenta.jsx'
 import Proyectos from './Pages/Proyectos.jsx'
 import CrearProyecto from './Pages/CrearProyecto.jsx'
-
+import EditarProyecto from './Pages/EditarProyecto.jsx'
 // Context 
 import { AuthProvider } from './context/AuthProvider.jsx'
 import {ProyectosProvider} from './context/ProyectosProvider.jsx'
@@ -38,6 +38,7 @@ function App() {
               <Route index element={<Proyectos/>}/>
               <Route path='crear-proyecto' element={<CrearProyecto/>}/>
               <Route path=':id' element={<Proyecto/>}/>
+              <Route path='editar/:id' element={<EditarProyecto/>}/>
             </Route>
 
           </Routes>
