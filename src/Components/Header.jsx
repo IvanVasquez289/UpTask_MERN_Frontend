@@ -4,7 +4,10 @@ const Header = () => {
   return (
     <header className="px-4 py-5 bg-white border-b">
         <div className="flex flex-col items-center gap-4 md:flex-row  md:justify-between ">
-            <h2 className="text-4xl text-sky-600 font-black text-center">UpTask</h2>
+            <Link to={'/proyectos'} className="text-4xl text-sky-600 font-black text-center">
+                UpTask
+            </Link>
+            {/* <h2 className="text-4xl text-sky-600 font-black text-center">UpTask</h2> */}
             <input 
                 type="search"
                 className="border p-2 rounded w-96"
