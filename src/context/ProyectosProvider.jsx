@@ -41,9 +41,22 @@ const ProyectosProvider = ({children}) => {
         obtenerProyectos()
     }, [])
     
-    const submitProyecto = async (proyecto) => {
-        const token = localStorage.getItem('token')
+    const submitProyecto = async (proyectoForm) => {
         
+
+        if(proyecto._id){
+            console.log('editando proyecto jej')
+            await editarProyecto(proyectoForm)
+        }else{
+            console.log('nuevo proyecto jej')
+            await crearProyecto(proyectoForm)
+        }
+
+    } 
+
+    const crearProyecto = async (proyecto) => {
+
+        const token = localStorage.getItem('token')
         if (!token) return;
 
         const config = {
@@ -69,7 +82,43 @@ const ProyectosProvider = ({children}) => {
         } catch (error) {
             console.log(error)
         }
-    } 
+    }
+
+    const editarProyecto = async (proyectoForm) => {
+
+        const token = localStorage.getItem('token')
+        if (!token) return;
+
+        const config = {
+            headers: {
+                "Content-Type": "Application/json",
+                Authorization: `Bearer ${token}`
+            }
+        }
+
+        try {
+            const {data} = await clienteAxios.put(`/proyectos/${proyecto._id}`,proyectoForm,config)
+
+            // Sincronizar state
+            const proyectosActualizados = proyectos.map(proyectoState => proyectoState._id == data._id ? data : proyectoState)
+            setProyectos(proyectosActualizados)
+
+            // Mostrar alerta
+            setAlerta({
+                msj: 'Se guardaron los cambios',
+                error: false
+            })
+
+            // Redireccionar
+            setTimeout(() => {
+                setAlerta({})
+                navigate('/proyectos')
+            }, 3000);
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
 
     const obtenerProyecto = async (id) => {
         const token = localStorage.getItem('token')
@@ -105,7 +154,8 @@ const ProyectosProvider = ({children}) => {
                 submitProyecto,
                 obtenerProyecto,
                 proyecto,
-                cargando
+                cargando,
+                setProyecto
             }}
         >
             {children}
