@@ -17,27 +17,27 @@ const ProyectosProvider = ({children}) => {
         }, 3000);
     }
 
-    useEffect(() => {
-        const obtenerProyectos = async () => {
-            try {
-                const token = localStorage.getItem('token')
-                if (!token) return;
+    const obtenerProyectos = async () => {
+        try {
+            const token = localStorage.getItem('token')
+            if (!token) return;
 
-                const config = {
-                    headers: {
-                        "Content-Type": "Application/json",
-                        Authorization: `Bearer ${token}`
-                    }
+            const config = {
+                headers: {
+                    "Content-Type": "Application/json",
+                    Authorization: `Bearer ${token}`
                 }
-
-                const {data} = await clienteAxios('/proyectos',config)
-                setProyectos(data)
-
-            } catch (error) {
-                console.log(error)
             }
-        }
 
+            const {data} = await clienteAxios('/proyectos',config)
+            setProyectos(data)
+
+        } catch (error) {
+            console.log(error)
+        }
+    }
+
+    useEffect(() => {
         obtenerProyectos()
     }, [])
     
@@ -189,7 +189,8 @@ const ProyectosProvider = ({children}) => {
                 proyecto,
                 cargando,
                 setProyecto,
-                eliminarProyecto
+                eliminarProyecto,
+                obtenerProyectos
             }}
         >
             {children}

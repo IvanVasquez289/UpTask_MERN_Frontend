@@ -3,12 +3,14 @@ import { Link, useNavigate } from "react-router-dom";
 import Alerta from "../Components/Alerta";
 import clienteAxios from "../config/clienteAxios";
 import useAuth from "../hooks/useAuth";
+import useProyectos from "../hooks/useProyectos";
 const Login = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [alerta, setAlerta] = useState({})
 
   const {setAuth} = useAuth()
+  const {obtenerProyectos} = useProyectos()
 
   const navigate = useNavigate()
 
@@ -28,6 +30,7 @@ const Login = () => {
       localStorage.setItem('token',data.token)
       setAlerta({})
       setAuth(data)
+      await obtenerProyectos()
       navigate('/proyectos')
     } catch (error) {
       setAlerta({

@@ -7,7 +7,7 @@ const Proyectos = () => {
     <>
       <h1 className="font-black text-4xl">Proyectos</h1>
       <div className=" bg-white shadow-md  rounded-lg mt-10">
-        {proyectos.length ? (
+        {proyectos?.length ? (
           proyectos.map(proyecto => (
             <ProyectoPreview key={proyecto._id} proyecto={proyecto}/>
           ))
