@@ -4,6 +4,12 @@ import useProyectos from '../hooks/useProyectos'
 
 const ModalFormularioTarea = () => {
     const {handleClickModal, modalFormularioTarea} = useProyectos()
+
+    const [nombre,setNombre] = useState('')
+    const [descripcion,setDescripcion] = useState('')
+    const [prioridad,setPrioridad] = useState('')
+
+    const PRIORIDADES = ['Baja','Media','Alta']
     return (
         <Transition.Root show={modalFormularioTarea} as={Fragment}>
             <Dialog as="div" className="fixed z-10 inset-0 overflow-y-auto" onClose={handleClickModal}>
@@ -36,7 +42,7 @@ const ModalFormularioTarea = () => {
                         leaveFrom="opacity-100 translate-y-0 sm:scale-100"
                         leaveTo="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
                     >
-                            <div className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
+                        <div className="inline-block align-bottom bg-white rounded-lg px-4 pt-5 pb-4 text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full sm:p-6">
 
 
                             <div className="hidden sm:block absolute top-0 right-0 pt-4 pr-4">
@@ -55,10 +61,66 @@ const ModalFormularioTarea = () => {
 
                             <div className="sm:flex sm:items-start">
                                 <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
-                                    <Dialog.Title as="h3" className="text-lg leading-6 font-bold text-gray-900">
-                                        <p className='text-4xl'>Titulo</p>
+                                    <Dialog.Title as="h3" className="text-2xl leading-6 font-bold text-gray-900">
+                                        Crear Tarea
                                     </Dialog.Title>
-                                    <p>Contenido</p>
+                                    <form className='my-5'>
+                                        <div className='mb-3'>
+                                            <label 
+                                                htmlFor="nombre"
+                                                className='uppercase font-bold'
+                                            >
+                                                Nombre
+                                            </label>
+                                            <input 
+                                                type="text" 
+                                                id="nombre" 
+                                                placeholder='Nombre de la tarea'
+                                                className='w-full border-2 rounded p-2 mt-2' 
+                                                value={nombre}
+                                                onChange={e => setNombre(e.target.value)}
+                                            />
+                                        </div>
+                                        <div className='mb-3'>
+                                            <label 
+                                                htmlFor="descripcion"
+                                                className='uppercase font-bold'
+                                            >
+                                                Descripcion
+                                            </label>
+                                            <textarea 
+                                                id="descripcion" 
+                                                placeholder='Descripcion de la tarea'
+                                                className='w-full border-2 rounded p-2 mt-2' 
+                                                value={descripcion}
+                                                onChange={e => setDescripcion(e.target.value)}
+                                            />
+                                        </div>
+                                        <div className='mb-3'>
+                                            <label 
+                                                htmlFor="prioridad"
+                                                className='uppercase font-bold'
+                                            >
+                                                Prioridad
+                                            </label>
+                                           <select 
+                                                id="prioridad"
+                                                value={prioridad}
+                                                className='w-full border-2 rounded p-2 mt-2' 
+                                                onChange={e => setPrioridad(e.target.value)}
+                                            >
+                                                {PRIORIDADES.map(item => (
+                                                    <option key={item} value={item}>{item}</option>
+                                                ))}
+                                           </select>
+                                        </div>
+
+                                        <input 
+                                            type="submit" 
+                                            value="Crear Tarea"
+                                            className='w-full bg-sky-600 hover:bg-sky-700 transition-colors p-2 rounded-md text-white text-md cursor-pointer'
+                                        />
+                                    </form>
                                 </div>
                             </div>
                         </div>
