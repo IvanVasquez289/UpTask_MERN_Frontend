@@ -1,12 +1,16 @@
 import { Fragment, useState, useEffect } from 'react'
 import { Dialog, Transition } from '@headlessui/react'
 import useProyectos from '../hooks/useProyectos'
+import { useParams } from 'react-router-dom'
 import Alerta from './Alerta'
 const ModalFormularioTarea = () => {
+    const params = useParams()
+ 
     const {handleClickModal, modalFormularioTarea, setAlerta, alerta, submitTarea} = useProyectos()
 
     const [nombre,setNombre] = useState('')
     const [descripcion,setDescripcion] = useState('')
+    const [fechaEntrega,setFechaEntrega] = useState('')
     const [prioridad,setPrioridad] = useState('')
 
     const PRIORIDADES = ['Baja','Media','Alta']
@@ -22,7 +26,7 @@ const ModalFormularioTarea = () => {
             return
         }
 
-        submitTarea({nombre,descripcion,prioridad})
+        submitTarea({nombre,descripcion,prioridad,fechaEntrega,proyecto: params.id})
 
     }
 
@@ -112,6 +116,21 @@ const ModalFormularioTarea = () => {
                                                 className='w-full border-2 rounded p-2 mt-2' 
                                                 value={descripcion}
                                                 onChange={e => setDescripcion(e.target.value)}
+                                            />
+                                        </div>
+                                        <div className='mb-3'>
+                                            <label 
+                                                htmlFor="fecha-entrega"
+                                                className='uppercase font-bold'
+                                            >
+                                                Fecha Entrega
+                                            </label>
+                                            <input 
+                                                type="date" 
+                                                id="fecha-entrega" 
+                                                className='w-full border-2 rounded p-2 mt-2' 
+                                                value={fechaEntrega}
+                                                onChange={e => setFechaEntrega(e.target.value)}
                                             />
                                         </div>
                                         <div className='mb-3'>

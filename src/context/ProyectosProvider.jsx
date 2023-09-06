@@ -184,7 +184,23 @@ const ProyectosProvider = ({children}) => {
     }
 
     const submitTarea = async (tarea) => {
-        console.log(tarea)
+
+        const token = localStorage.getItem('token')
+        if (!token) return;
+
+        const config = {
+            headers: {
+                "Content-Type": "Application/json",
+                Authorization: `Bearer ${token}`
+            }
+        }
+
+        try {
+            const {data} = await clienteAxios.post('/tareas',tarea,config)  
+            console.log(data)
+        } catch (error) {
+            console.log(error)
+        }
     }
 
     return(
