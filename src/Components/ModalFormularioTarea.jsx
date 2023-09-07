@@ -11,12 +11,12 @@ const ModalFormularioTarea = () => {
     const [nombre,setNombre] = useState('')
     const [descripcion,setDescripcion] = useState('')
     const [fechaEntrega,setFechaEntrega] = useState('')
-    const [prioridad,setPrioridad] = useState('Baja')
+    const [prioridad,setPrioridad] = useState('')
 
     const PRIORIDADES = ['Baja','Media','Alta']
 
 
-    const handleSubmit = e => {
+    const handleSubmit = async e => {
         e.preventDefault()
         if([nombre,descripcion,prioridad].includes('')){
             setAlerta({
@@ -26,8 +26,13 @@ const ModalFormularioTarea = () => {
             return
         }
 
-        submitTarea({nombre,descripcion,prioridad,fechaEntrega,proyecto: params.id})
+        await submitTarea({nombre,descripcion,prioridad,fechaEntrega,proyecto: params.id})
 
+        // Resetear Formualario
+        setNombre('')
+        setDescripcion('')
+        setFechaEntrega('')
+        setPrioridad('')
     }
 
     const {msj} = alerta
@@ -146,6 +151,7 @@ const ModalFormularioTarea = () => {
                                                 className='w-full border-2 rounded p-2 mt-2' 
                                                 onChange={e => setPrioridad(e.target.value)}
                                             >
+                                                <option value="">--Seleccionar--</option>
                                                 {PRIORIDADES.map(item => (
                                                     <option key={item} value={item}>{item}</option>
                                                 ))}

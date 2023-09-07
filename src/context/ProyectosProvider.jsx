@@ -198,6 +198,12 @@ const ProyectosProvider = ({children}) => {
         try {
             const {data} = await clienteAxios.post('/tareas',tarea,config)  
             console.log(data)
+            // Actualizar Tareas del proyecto
+            const proyectoUpdate = {...proyecto}
+            proyectoUpdate.tareas = [...proyecto.tareas, data]
+            setProyecto(proyectoUpdate) 
+            setAlerta({})
+            setModalFormularioTarea(false)
         } catch (error) {
             console.log(error)
         }
