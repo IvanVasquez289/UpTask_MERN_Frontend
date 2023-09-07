@@ -11,7 +11,7 @@ const ModalFormularioTarea = () => {
     const [nombre,setNombre] = useState('')
     const [descripcion,setDescripcion] = useState('')
     const [fechaEntrega,setFechaEntrega] = useState('')
-    const [prioridad,setPrioridad] = useState('')
+    const [prioridad,setPrioridad] = useState('Baja')
 
     const PRIORIDADES = ['Baja','Media','Alta']
 
