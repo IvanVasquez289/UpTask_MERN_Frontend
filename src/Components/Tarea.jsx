@@ -1,6 +1,10 @@
 import { formatearFecha } from "../helpers/formatearFecha";
+import useProyectos from "../hooks/useProyectos";
 const Tarea = ({ tarea }) => {
+
+  const {handleClickTarea} = useProyectos()
   const { nombre, descripcion, estado, fechaEntrega, prioridad, _id } = tarea;
+
   return (
     <div className=" border-b p-5 flex justify-between items-center">
       <div>
@@ -10,7 +14,10 @@ const Tarea = ({ tarea }) => {
         <p className="text-gray-600">Prioridad: {prioridad}</p>
       </div>
       <div className="flex gap-3">
-        <button className="bg-indigo-600 text-white px-4 py-3 uppercase text-md font-bold rounded-md">
+        <button 
+          className="bg-indigo-600 text-white px-4 py-3 uppercase text-md font-bold rounded-md"
+          onClick={() => handleClickTarea(tarea)}
+        >
           Editar
         </button>
 

@@ -6,7 +6,7 @@ import Alerta from './Alerta'
 const ModalFormularioTarea = () => {
     const params = useParams()
  
-    const {handleClickModal, modalFormularioTarea, setAlerta, alerta, submitTarea} = useProyectos()
+    const {handleClickModal, modalFormularioTarea, setAlerta, alerta, submitTarea,tarea} = useProyectos()
 
     const [nombre,setNombre] = useState('')
     const [descripcion,setDescripcion] = useState('')
@@ -15,6 +15,10 @@ const ModalFormularioTarea = () => {
 
     const PRIORIDADES = ['Baja','Media','Alta']
 
+    useEffect(() => {
+        console.log(tarea)
+    }, [tarea])
+    
 
     const handleSubmit = async e => {
         e.preventDefault()
