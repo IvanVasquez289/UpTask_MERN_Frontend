@@ -25,7 +25,7 @@ const Proyecto = () => {
         </div>
       </div>
 
-      <button className=" bg-sky-400 w-full md:w-auto text-white px-5 py-3 
+      <button className=" bg-sky-400  md:w-auto text-white px-5 py-3 
         rounded uppercase text-sm font-bold  text-center flex gap-2 items-center
         "
         onClick={handleClickModal}
@@ -38,7 +38,7 @@ const Proyecto = () => {
       <p className=" font-bold mt-4 text-xl mb-4">Tareas del Proyecto</p>
       
       {proyecto.tareas?.length ? (
-        <div className=" bg-white rounded">
+        <div className=" bg-white rounded ">
           {proyecto.tareas?.map(tarea => (
             <Tarea key={tarea._id} tarea={tarea}/>
           ))}
