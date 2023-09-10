@@ -16,7 +16,17 @@ const ModalFormularioTarea = () => {
     const PRIORIDADES = ['Baja','Media','Alta']
 
     useEffect(() => {
-        console.log(tarea)
+        if(Object.keys(tarea).length > 0){
+            setNombre(tarea.nombre)
+            setDescripcion(tarea.descripcion)
+            setFechaEntrega(tarea.fechaEntrega.split('T')[0])
+            setPrioridad(tarea.prioridad)
+            return
+        }
+        setNombre('')
+        setDescripcion('')
+        setFechaEntrega('')
+        setPrioridad('')
     }, [tarea])
     
 
@@ -92,7 +102,7 @@ const ModalFormularioTarea = () => {
                             <div className="sm:flex sm:items-start">
                                 <div className="mt-3 text-center sm:mt-0 sm:ml-4 sm:text-left w-full">
                                     <Dialog.Title as="h3" className="text-2xl leading-6 font-bold text-gray-900">
-                                        Crear Tarea
+                                        {tarea._id ? 'Editar Tarea' : 'Crear Tarea'}
                                     </Dialog.Title>
                                     {msj && <Alerta alerta={alerta}/>}
                                     <form className='my-5' onSubmit={handleSubmit}>
@@ -164,7 +174,7 @@ const ModalFormularioTarea = () => {
 
                                         <input 
                                             type="submit" 
-                                            value="Crear Tarea"
+                                            value={tarea._id ? 'Guardar cambios' : 'Crear Tarea'}
                                             className='w-full bg-sky-600 hover:bg-sky-700 transition-colors p-2 rounded-md text-white text-md cursor-pointer'
                                         />
                                     </form>

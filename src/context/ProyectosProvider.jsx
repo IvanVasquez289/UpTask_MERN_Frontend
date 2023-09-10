@@ -181,6 +181,7 @@ const ProyectosProvider = ({children}) => {
     }
 
     const handleClickModal = () => {
+        setTarea({})
         setModalFormularioTarea(!modalFormularioTarea)
     }
 
