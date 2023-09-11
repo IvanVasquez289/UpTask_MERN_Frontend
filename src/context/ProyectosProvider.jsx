@@ -185,20 +185,27 @@ const ProyectosProvider = ({children}) => {
         setModalFormularioTarea(!modalFormularioTarea)
     }
 
-    const submitTarea = async (tarea) => {
+    const submitTarea = async (tareaForm) => {
+        if(tarea._id){
+            await editarTarea(tareaForm)
+        }else{
+            await crearTarea(tareaForm)
+        }
+    }
 
+    const crearTarea = async (tareaForm) => {
         const token = localStorage.getItem('token')
         if (!token) return;
-
+    
         const config = {
             headers: {
                 "Content-Type": "Application/json",
                 Authorization: `Bearer ${token}`
             }
         }
-
+    
         try {
-            const {data} = await clienteAxios.post('/tareas',tarea,config)  
+            const {data} = await clienteAxios.post('/tareas',tareaForm,config)  
             console.log(data)
             // Actualizar Tareas del proyecto
             const proyectoUpdate = {...proyecto}
@@ -210,6 +217,31 @@ const ProyectosProvider = ({children}) => {
             console.log(error)
         }
     }
+
+    const editarTarea = async (tareaForm) => {
+        const token = localStorage.getItem('token')
+        if (!token) return;
+      
+        const config = {
+            headers: {
+                "Content-Type": "Application/json",
+                Authorization: `Bearer ${token}`
+            }
+        }
+      
+        try {
+            const {data} = await clienteAxios.put(`/tareas/${tarea._id}`,tareaForm,config)
+            console.log(data)
+            // TODO: ACTUALIZAR DOM
+            const proyectoActualizado = {...proyecto}
+            proyectoActualizado.tareas = proyectoActualizado.tareas.map(tareaState => tareaState._id == data._id ? data : tareaState )
+            setProyecto(proyectoActualizado)
+            setModalFormularioTarea(false)
+            setAlerta({})
+        } catch (error) {
+            console.log(error)
+        }
+      }
 
     const handleClickTarea = (tarea) => {
         setTarea(tarea)
