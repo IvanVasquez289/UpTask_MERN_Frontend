@@ -17,7 +17,7 @@ const RutaProtegida = () => {
         {auth._id ? (
           <div className="bg-gray-200">
               <Header/>
-              <div className=" md:flex md:min-h-screen">
+              <div className=" md:flex min-h-screen">
                   <Sidebar/>
                   <main className="flex-1 px-5 pb-10 md:my-10">
                       <Outlet/>

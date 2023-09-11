@@ -245,13 +245,54 @@ const ProyectosProvider = ({children}) => {
         }
       }
 
+    // handleClickEditarTarea
     const handleClickTarea = (tarea) => {
         setTarea(tarea)
         setModalFormularioTarea(true)
     }
 
-    const handleClickEliminarTarea = (tarea) => {
+    //* Este sirve para cerrar el modal
+    const handleModalEliminarTarea = () => {
+        setTarea({})
         setModalEliminarTarea(!modalEliminarTarea)
+    }
+    
+    //* Este para abrirlo
+    const handleClickEliminarTarea = (tarea) => {
+        setTarea(tarea)
+        setModalEliminarTarea(true)
+    }
+
+    //* Este al dar confirmar la eliminacion
+    const eliminarTarea = async () => {
+        const token = localStorage.getItem('token')
+        if (!token) return;
+      
+        const config = {
+            headers: {
+                "Content-Type": "Application/json",
+                Authorization: `Bearer ${token}`
+            }
+        }
+
+        try {
+            const {data} = await clienteAxios.delete(`/tareas/${tarea._id}`,config)
+            setAlerta({
+                msj: data.msj,
+                error: false
+            })
+            const proyectoActualizado = {...proyecto}
+            proyectoActualizado.tareas = proyectoActualizado.tareas.filter(tareaState => tareaState._id !== tarea._id)
+            setProyecto(proyectoActualizado)
+            setTarea({})
+            setModalEliminarTarea(false)
+
+            setTimeout(() => {
+                setAlerta({})
+            }, 3000);
+        } catch (error) {
+            console.log(error)
+        }
     }
 
      return(
@@ -273,8 +314,10 @@ const ProyectosProvider = ({children}) => {
                 submitTarea,
                 handleClickTarea,
                 tarea,
+                handleModalEliminarTarea,
                 handleClickEliminarTarea,
-                modalEliminarTarea
+                modalEliminarTarea,
+                eliminarTarea,
 
             }}
         >

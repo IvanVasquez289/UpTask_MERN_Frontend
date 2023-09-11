@@ -4,15 +4,18 @@ import useProyectos from "../hooks/useProyectos"
 import ModalFormularioTarea from "../Components/ModalFormularioTarea"
 import ModalEliminarTarea from "../Components/ModalEliminarTarea"
 import Tarea from "../Components/Tarea"
+import Alerta from "../Components/Alerta"
 const Proyecto = () => {
   const {id} = useParams()
-  const {obtenerProyecto, proyecto, cargando,handleClickModal} = useProyectos()
+  const {obtenerProyecto, proyecto, cargando,handleClickModal,alerta} = useProyectos()
   useEffect(() => {
     obtenerProyecto(id)
   }, [])
   
   const {nombre} = proyecto;
   if(cargando) return 'Cargando...'
+
+  const {msj} = alerta;
   return (
      <>
       <div className="md:flex justify-between">
@@ -37,7 +40,7 @@ const Proyecto = () => {
         </svg>
       </button>
       <p className=" font-bold mt-4 text-xl mb-4">Tareas del Proyecto</p>
-      
+      {msj && <Alerta alerta={alerta}/>}
       {proyecto.tareas?.length ? (
         <div className=" bg-white rounded ">
           {proyecto.tareas?.map(tarea => (
