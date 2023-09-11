@@ -10,6 +10,8 @@ const ProyectosProvider = ({children}) => {
     const [cargando, setCargando] = useState(false)
     const [modalFormularioTarea, setModalFormularioTarea] = useState(false)
     const [tarea,setTarea] = useState({})
+    const [modalEliminarTarea,setModalEliminarTarea] = useState(false)
+
     const navigate = useNavigate()
 
     const handleAlerta = (infoAlerta)=>{
@@ -248,7 +250,11 @@ const ProyectosProvider = ({children}) => {
         setModalFormularioTarea(true)
     }
 
-    return(
+    const handleClickEliminarTarea = (tarea) => {
+        setModalEliminarTarea(!modalEliminarTarea)
+    }
+
+     return(
         <ProyectosContext.Provider
             value={{
                 proyectos,
@@ -266,7 +272,9 @@ const ProyectosProvider = ({children}) => {
                 modalFormularioTarea,
                 submitTarea,
                 handleClickTarea,
-                tarea
+                tarea,
+                handleClickEliminarTarea,
+                modalEliminarTarea
 
             }}
         >

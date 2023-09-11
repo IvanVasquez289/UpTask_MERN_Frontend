@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { useParams,Link } from "react-router-dom"
 import useProyectos from "../hooks/useProyectos"
 import ModalFormularioTarea from "../Components/ModalFormularioTarea"
+import ModalEliminarTarea from "../Components/ModalEliminarTarea"
 import Tarea from "../Components/Tarea"
 const Proyecto = () => {
   const {id} = useParams()
@@ -49,6 +50,7 @@ const Proyecto = () => {
         </div>
       )}
       <ModalFormularioTarea/>
+      <ModalEliminarTarea/>
      </>
     
   )

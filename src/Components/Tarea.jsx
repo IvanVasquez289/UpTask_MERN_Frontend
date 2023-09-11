@@ -2,7 +2,7 @@ import { formatearFecha } from "../helpers/formatearFecha";
 import useProyectos from "../hooks/useProyectos";
 const Tarea = ({ tarea }) => {
 
-  const {handleClickTarea} = useProyectos()
+  const {handleClickTarea, handleClickEliminarTarea} = useProyectos()
   const { nombre, descripcion, estado, fechaEntrega, prioridad, _id } = tarea;
 
   return (
@@ -30,7 +30,10 @@ const Tarea = ({ tarea }) => {
             Incompleto
           </button>
         )}
-        <button className="bg-red-600 text-white p-1 flex-grow  md:px-4 py-3 uppercase text-sm md:text-md font-bold rounded-md">
+        <button 
+          className="bg-red-600 text-white p-1 flex-grow  md:px-4 py-3 uppercase text-sm md:text-md font-bold rounded-md"
+          onClick={() => handleClickEliminarTarea(tarea)}
+        >
           Eliminar
         </button>
       </div>
