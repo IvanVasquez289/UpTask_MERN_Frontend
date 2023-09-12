@@ -13,6 +13,7 @@ import ConfirmarCuenta from './Pages/ConfirmarCuenta.jsx'
 import Proyectos from './Pages/Proyectos.jsx'
 import CrearProyecto from './Pages/CrearProyecto.jsx'
 import EditarProyecto from './Pages/EditarProyecto.jsx'
+import NuevoColaborador from './Pages/NuevoColaborador.jsx'
 // Context 
 import { AuthProvider } from './context/AuthProvider.jsx'
 import {ProyectosProvider} from './context/ProyectosProvider.jsx'
@@ -37,6 +38,7 @@ function App() {
             <Route path='/proyectos' element={<RutaProtegida/>}>
               <Route index element={<Proyectos/>}/>
               <Route path='crear-proyecto' element={<CrearProyecto/>}/>
+              <Route path='nuevo-colaborador/:id' element={<NuevoColaborador/>}/>
               <Route path=':id' element={<Proyecto/>}/>
               <Route path='editar/:id' element={<EditarProyecto/>}/>
             </Route>

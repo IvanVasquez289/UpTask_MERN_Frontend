@@ -52,6 +52,16 @@ const Proyecto = () => {
           <p className=" font-medium">No hay tareas</p>
         </div>
       )}
+
+      <div className="flex items-center justify-between">
+        <p className=" font-bold mt-4 text-xl mb-4">Colaboradores</p>
+        <Link 
+          to={`/proyectos/nuevo-colaborador/${proyecto._id}`} 
+          className=" text-gray-400 hover:text-black uppercase font-bold"
+        >
+            Agregar
+        </Link>
+      </div>
       <ModalFormularioTarea/>
       <ModalEliminarTarea/>
      </>
