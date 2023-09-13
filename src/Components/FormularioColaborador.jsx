@@ -2,7 +2,7 @@ import { useState } from "react";
 import useProyectos from "../hooks/useProyectos";
 import Alerta from "./Alerta";
 const FormularioColaborador = () => {
-  const {setAlerta,alerta,submitColaborador} = useProyectos()
+  const {setAlerta,alerta,submitColaborador,handleAlerta} = useProyectos()
 
   const [email,setEmail] = useState('')
 
@@ -10,7 +10,7 @@ const FormularioColaborador = () => {
     e.preventDefault();
 
     if(email.trim() === ''){
-        setAlerta({
+        handleAlerta({
             msj: 'El email es obligatorio',
             error: true
         })
