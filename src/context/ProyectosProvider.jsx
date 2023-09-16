@@ -316,10 +316,15 @@ const ProyectosProvider = ({children}) => {
                 msj: error.response.data.msj,
                 error:true
             })
-           
+           setColaborador({})
         }finally{
             setCargando(false)
         }
+    }
+
+
+    const agregarColaborador = async email => {
+        console.log(email)
     }
 
      return(
@@ -345,7 +350,9 @@ const ProyectosProvider = ({children}) => {
                 handleClickEliminarTarea,
                 modalEliminarTarea,
                 eliminarTarea,
-                submitColaborador
+                submitColaborador,
+                colaborador,
+                agregarColaborador
             }}
         >
             {children}
