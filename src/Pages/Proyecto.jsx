@@ -5,6 +5,8 @@ import ModalFormularioTarea from "../Components/ModalFormularioTarea"
 import ModalEliminarTarea from "../Components/ModalEliminarTarea"
 import Tarea from "../Components/Tarea"
 import Alerta from "../Components/Alerta"
+import Colaborador from "../Components/Colaborador"
+
 const Proyecto = () => {
   const {id} = useParams()
   const {obtenerProyecto, proyecto, cargando,handleClickModal,alerta} = useProyectos()
@@ -13,6 +15,7 @@ const Proyecto = () => {
   }, [])
   
   const {nombre} = proyecto;
+  // console.log(proyecto)
   if(cargando) return 'Cargando...'
 
   const {msj} = alerta;
@@ -62,6 +65,18 @@ const Proyecto = () => {
             Agregar
         </Link>
       </div>
+
+      {proyecto.colaboradores?.length ? (
+        <div className=" bg-white rounded ">
+          {proyecto.colaboradores?.map(colaborador => (
+            <Colaborador key={colaborador._id} colaborador={colaborador}/>
+          ))}
+        </div>
+      ) : (
+        <div className=" bg-white shador rounded p-4 text-center">
+          <p className=" font-medium">No hay colaboradores en este proyecto</p>
+        </div>
+      )}
       <ModalFormularioTarea/>
       <ModalEliminarTarea/>
      </>
