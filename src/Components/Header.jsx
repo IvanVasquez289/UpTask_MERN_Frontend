@@ -15,7 +15,7 @@ const Header = () => {
             />
 
             <div className="flex items-center gap-5">
-                <Link to={'/proyectos'} className="font-bold uppercase text-gray-300">
+                <Link to={'/proyectos'} className="font-bold uppercase text-gray-400 hover:text-gray-100">
                     Proyectos
                 </Link>
                 <button type="button" className="bg-sky-600 text-white rounded-md p-2 uppercase font-bold">

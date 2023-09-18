@@ -24,10 +24,10 @@ const NuevoColaborador = () => {
         {cargando ? <p className=" text-center font-bold text-gray-700">Cargando...</p> : colaborador?._id && (
           <div className="bg-white mx-auto w-full xl:w-3/5 shadow-md p-5 rounded">
             <h2 className=" font-bold text-center text-2xl">Resultado:</h2>
-            <div className="flex justify-between items-center mt-5">
+            <div className="flex justify-around items-center mt-5">
               <p className="text-xl">{colaborador.nombre}</p>
               <button
-                className="bg-slate-500 uppercase px-2 rounded text-white font-bold"
+                className="bg-slate-700  px-3 py-2 text-md rounded text-white font-bold hover:bg-slate-500"
                 onClick={() => agregarColaborador({
                   email: colaborador.email
                 })}

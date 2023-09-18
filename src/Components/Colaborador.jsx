@@ -1,9 +1,24 @@
-import React from 'react'
+import React from "react";
 
-const Colaborador = () => {
+const Colaborador = ({ colaborador }) => {
+  const { nombre, email } = colaborador;
+
   return (
-    <div>Colaborador</div>
-  )
-}
+    <div className=" border-b p-5 lg:flex justify-between items-center ">
+      <div>
+        <p>{nombre}</p>
+        <p className=" text-sm text-gray-700 italic">{email}</p>
+      </div>
+      <div>
+        <button 
+            type="button"
+            className="bg-red-600 text-white p-1 flex-grow  md:px-4 py-3 uppercase text-sm md:text-md font-bold rounded-md hover:bg-red-400"
+        >
+          Eliminar
+        </button>
+      </div>
+    </div>
+  );
+};
 
-export default Colaborador
+export default Colaborador;
