@@ -138,12 +138,16 @@ const ProyectosProvider = ({children}) => {
         }
         
         try {
-            setCargando(true)
+           setAlerta({})
+           setCargando(true)
            const {data} = await clienteAxios(`/proyectos/${id}`,config)
            console.log(data) 
            setProyecto(data)
         } catch (error) {
-            console.log(error)
+            setAlerta({
+                msj: error.response.data.msj,
+                error:true
+            })
         }finally{
             setCargando(false)
         }
@@ -324,7 +328,30 @@ const ProyectosProvider = ({children}) => {
 
 
     const agregarColaborador = async email => {
-        console.log(email)
+ 
+        const token = localStorage.getItem('token')
+        if (!token) return;
+      
+        const config = {
+            headers: {
+                "Content-Type": "Application/json",
+                Authorization: `Bearer ${token}`
+            }
+        }
+        try {
+            const {data} = await clienteAxios.post(`/proyectos/colaboradores/${proyecto._id}`,email,config)
+            console.log(data)
+            handleAlerta({
+                msj: data.msj,
+                error:false
+            })
+            setColaborador({})
+        } catch (error) {
+            setAlerta({
+                msj: error.response.data.msj,
+                error:true
+            })
+        }
     }
 
      return(
@@ -352,7 +379,8 @@ const ProyectosProvider = ({children}) => {
                 eliminarTarea,
                 submitColaborador,
                 colaborador,
-                agregarColaborador
+                agregarColaborador,
+                setColaborador
             }}
         >
             {children}

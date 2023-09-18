@@ -1,15 +1,18 @@
 import FormularioColaborador from "../Components/FormularioColaborador"
+import Alerta from "../Components/Alerta"
 import useProyectos from "../hooks/useProyectos"
 import { useEffect } from "react"
 import { useParams } from "react-router-dom"
 const NuevoColaborador = () => {
   const {id} = useParams();
-  const {obtenerProyecto,proyecto,cargando,colaborador,agregarColaborador} = useProyectos();
+  const {obtenerProyecto,proyecto,cargando,colaborador,agregarColaborador,setColaborador,alerta} = useProyectos();
 
   useEffect(() => {
+    setColaborador({})
     obtenerProyecto(id)
   }, [])
   
+  if(!proyecto._id) return <Alerta alerta={alerta}/>
   return (
     <>
         <h1 className='font-black text-4xl'>Agregar colaborador(a) al proyecto: {proyecto.nombre}</h1>
