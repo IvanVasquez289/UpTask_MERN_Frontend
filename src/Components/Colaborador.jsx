@@ -1,6 +1,6 @@
-import React from "react";
-
+import useProyectos from "../hooks/useProyectos";
 const Colaborador = ({ colaborador }) => {
+  const {handleModalEliminarColaborador } = useProyectos()
   const { nombre, email } = colaborador;
 
   return (
@@ -13,6 +13,7 @@ const Colaborador = ({ colaborador }) => {
         <button 
             type="button"
             className="bg-red-600 text-white p-1 flex-grow  md:px-4 py-3 uppercase text-sm md:text-md font-bold rounded-md hover:bg-red-400"
+            onClick={() => handleModalEliminarColaborador(colaborador)}
         >
           Eliminar
         </button>
