@@ -1,8 +1,11 @@
 import { formatearFecha } from "../helpers/formatearFecha";
 import useProyectos from "../hooks/useProyectos";
+import useAdmin from "../hooks/useAdmin";
+
 const Tarea = ({ tarea }) => {
 
   const {handleClickTarea, handleClickEliminarTarea} = useProyectos()
+  const admin = useAdmin()
   const { nombre, descripcion, estado, fechaEntrega, prioridad, _id } = tarea;
 
   return (
@@ -14,12 +17,14 @@ const Tarea = ({ tarea }) => {
         <p className="text-gray-600">Prioridad: {prioridad}</p>
       </div>
       <div className="flex gap-3 mt-3">
-        <button 
-          className="bg-indigo-600 text-white flex-grow px-4 py-3 uppercase text-md font-bold rounded-md"
-          onClick={() => handleClickTarea(tarea)}
-        >
-          Editar
-        </button>
+        {admin && (
+          <button 
+            className="bg-indigo-600 text-white flex-grow px-4 py-3 uppercase text-md font-bold rounded-md"
+            onClick={() => handleClickTarea(tarea)}
+          >
+            Editar
+          </button>
+        )}
 
         {estado ? (
           <button className="bg-blue-600 text-white p-1 flex-grow  md:px-4 py-3 uppercase text-sm md:text-md font-bold rounded-md">
@@ -30,12 +35,15 @@ const Tarea = ({ tarea }) => {
             Incompleto
           </button>
         )}
-        <button 
-          className="bg-red-600 text-white p-1 flex-grow  md:px-4 py-3 uppercase text-sm md:text-md font-bold rounded-md"
-          onClick={() => handleClickEliminarTarea(tarea)}
-        >
-          Eliminar
-        </button>
+
+        {admin && (
+          <button 
+            className="bg-red-600 text-white p-1 flex-grow  md:px-4 py-3 uppercase text-sm md:text-md font-bold rounded-md"
+            onClick={() => handleClickEliminarTarea(tarea)}
+          >
+            Eliminar
+          </button>
+        )}
       </div>
     </div>
   );
