@@ -4,7 +4,7 @@ import useAdmin from "../hooks/useAdmin";
 
 const Tarea = ({ tarea }) => {
 
-  const {handleClickTarea, handleClickEliminarTarea} = useProyectos()
+  const {handleClickTarea, handleClickEliminarTarea,completarTarea} = useProyectos()
   const admin = useAdmin()
   const { nombre, descripcion, estado, fechaEntrega, prioridad, _id } = tarea;
 
@@ -26,16 +26,13 @@ const Tarea = ({ tarea }) => {
           </button>
         )}
 
-        {estado ? (
-          <button className="bg-blue-600 text-white p-1 flex-grow  md:px-4 py-3 uppercase text-sm md:text-md font-bold rounded-md">
-            Completo
-          </button>
-        ) : (
-          <button className="bg-gray-600 text-white p-1 flex-grow  md:px-4 py-3 uppercase text-sm md:text-md font-bold rounded-md">
-            Incompleto
-          </button>
-        )}
-
+        <button 
+          className={`${estado ? 'bg-blue-600' : 'bg-gray-600'} text-white p-1 flex-grow  md:px-4 py-3 uppercase text-sm md:text-md font-bold rounded-md`}
+          onClick={() => completarTarea(_id)}
+        >
+          {estado ? 'Completo' : 'Incompleto'}
+        </button>
+  
         {admin && (
           <button 
             className="bg-red-600 text-white p-1 flex-grow  md:px-4 py-3 uppercase text-sm md:text-md font-bold rounded-md"

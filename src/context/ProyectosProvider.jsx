@@ -392,6 +392,30 @@ const ProyectosProvider = ({children}) => {
         }
     } 
 
+    const completarTarea = async (id) => {
+        const token = localStorage.getItem('token')
+        if (!token) return;
+      
+        const config = {
+            headers: {
+                "Content-Type": "Application/json",
+                Authorization: `Bearer ${token}`
+            }
+        }
+
+        try {
+            const {data} = await clienteAxios.put(`/tareas/estado/${id}`,{},config)
+
+            const proyectoActualizado = {...proyecto}
+            proyectoActualizado.tareas = proyectoActualizado.tareas.map(tareaState => tareaState._id === data._id ? data : tareaState)
+            setProyecto(proyectoActualizado)
+            setAlerta({})
+            setTarea({})
+        } catch (error) {
+            console.log(error.response)
+        }
+    }
+
      return(
         <ProyectosContext.Provider
             value={{
@@ -421,7 +445,8 @@ const ProyectosProvider = ({children}) => {
                 setColaborador,
                 handleModalEliminarColaborador,
                 modalEliminarColaborador,
-                eliminarColaborador
+                eliminarColaborador,
+                completarTarea
             }}
         >
             {children}

@@ -25,7 +25,6 @@ const Proyecto = () => {
   if(cargando) return 'Cargando...'
 
   const {msj} = alerta;
-  console.log(admin)
   return (
     msj && alerta.error ? <Alerta alerta={alerta}/> : (
       <>
