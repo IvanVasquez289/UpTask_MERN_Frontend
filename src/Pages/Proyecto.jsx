@@ -26,7 +26,7 @@ const Proyecto = () => {
 
   const {msj} = alerta;
   return (
-    msj && alerta.error ? <Alerta alerta={alerta}/> : (
+  
       <>
         <div className="md:flex justify-between">
           <h1 className=" font-black text-4xl mb-3">{nombre}</h1>
@@ -55,7 +55,7 @@ const Proyecto = () => {
         )}
 
         <p className=" font-bold mt-4 text-xl mb-4">Tareas del Proyecto</p>
-        {msj && <Alerta alerta={alerta}/>}
+
         {proyecto.tareas?.length ? (
           <div className=" bg-white rounded ">
             {proyecto.tareas?.map(tarea => (
@@ -102,7 +102,7 @@ const Proyecto = () => {
 
     )
     
-  )
+  
 }
 
 export default Proyecto
