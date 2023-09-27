@@ -5,13 +5,13 @@ const ProyectoPreview = ({ proyecto }) => {
   const { nombre, _id, cliente ,creador} = proyecto;
 
   return (
-    <div className=" p-5 border-b flex items-center justify-between">
-      <div className="flex-col md:flex md:flex-row items-center gap-2">
+    <div className=" p-5 border-b flex flex-col md:flex-row justify-between">
+      <div className="flex flex-col items-start gap-2 mb-2 md:mb-0">
         <p>
           {nombre}
         </p>
 
-        <p className="text-gray-500 uppercase text-sm italic">{cliente}</p>{" "}
+        <p className="text-gray-500 uppercase text-sm italic w-full overflow-hidden">{cliente}</p>{" "}
 
         {auth._id !== creador && (
           <p className="bg-green-400 p-1 rounded text-white text-sm font-bold">
@@ -22,7 +22,7 @@ const ProyectoPreview = ({ proyecto }) => {
 
       <Link
         to={`${_id}`}
-        className="text-gray-600 hover:text-gray-800 uppercase font-bold text-sm"
+        className="text-sky-600 hover:text-sky-800 uppercase font-bold text-sm"
       >
         Ver Proyecto
       </Link>
