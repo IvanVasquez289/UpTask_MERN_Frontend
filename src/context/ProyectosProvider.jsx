@@ -406,7 +406,7 @@ const ProyectosProvider = ({children}) => {
 
         try {
             const {data} = await clienteAxios.put(`/tareas/estado/${id}`,{},config)
-
+            console.log(data)
             const proyectoActualizado = {...proyecto}
             proyectoActualizado.tareas = proyectoActualizado.tareas.map(tareaState => tareaState._id === data._id ? data : tareaState)
             setProyecto(proyectoActualizado)
