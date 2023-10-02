@@ -11,17 +11,37 @@ import Colaborador from "../Components/Colaborador"
 import ModalFormularioTarea from "../Components/ModalFormularioTarea"
 import ModalEliminarTarea from "../Components/ModalEliminarTarea"
 import ModalEliminarColaborador from "../Components/ModalEliminarColaborador"
+// ? Socket.io
+import io from 'socket.io-client'
+
+let socket;
 
 const Proyecto = () => {
   const {id} = useParams()
   const {obtenerProyecto, proyecto, cargando,handleClickModal,alerta} = useProyectos()
   const admin = useAdmin()
+
   useEffect(() => {
     obtenerProyecto(id)
   }, [])
+
+  //? Este solo se ejecuta una vez para abrir el proyecto y entrar al room
+  useEffect(() => {
+    socket = io(import.meta.env.VITE_BACKEND_URL)
+    socket.emit('abrir proyecto', id)
+  }, [])
+  
+
+  //? Como no tiene dependencias, se va a estar ejecutando todo el tiempo
+  useEffect(() => {
+    socket.on('respuesta', (persona) => {
+      console.log(persona)
+    })
+  })
+  
   
   const {nombre} = proyecto;
-  console.log(proyecto)
+  // console.log(proyecto)
   if(cargando) return 'Cargando...'
 
   const {msj} = alerta;
