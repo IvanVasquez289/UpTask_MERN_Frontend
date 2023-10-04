@@ -1,7 +1,10 @@
 import { createContext, useState , useEffect} from "react";
 import clienteAxios from "../config/clienteAxios";
 import {useNavigate} from 'react-router-dom'
+import io from 'socket.io-client'
 const ProyectosContext = createContext();
+
+let socket;
 
 const ProyectosProvider = ({children}) => {
     const [proyectos,setProyectos] = useState([])
@@ -48,6 +51,11 @@ const ProyectosProvider = ({children}) => {
         obtenerProyectos()
     }, [])
     
+    useEffect(() => {
+        socket = io(import.meta.env.VITE_BACKEND_URL)
+    }, [])
+    
+
     const submitProyecto = async (proyectoForm) => {
         
 
@@ -217,12 +225,17 @@ const ProyectosProvider = ({children}) => {
         try {
             const {data} = await clienteAxios.post('/tareas',tareaForm,config)  
             console.log(data)
+            // * Ahora esta parte la hara socket.io
             // Actualizar Tareas del proyecto
-            const proyectoUpdate = {...proyecto}
-            proyectoUpdate.tareas = [...proyecto.tareas, data]
-            setProyecto(proyectoUpdate) 
+            // const proyectoUpdate = {...proyecto}
+            // proyectoUpdate.tareas = [...proyecto.tareas, data]
+            // setProyecto(proyectoUpdate) 
+
             setAlerta({})
             setModalFormularioTarea(false)
+
+            // SOCKET IO
+            socket.emit('nueva tarea', data)
         } catch (error) {
             console.log(error)
         }
@@ -422,6 +435,15 @@ const ProyectosProvider = ({children}) => {
         setBuscador(!buscador)
     }
 
+    //? SOCKET IO
+
+    const submitTareasProyecto = (tarea) => {
+        // Actualizar Tareas del proyecto
+        const proyectoUpdate = {...proyecto}
+        proyectoUpdate.tareas = [...proyecto.tareas, tarea]
+        setProyecto(proyectoUpdate) 
+    }
+
      return(
         <ProyectosContext.Provider
             value={{
@@ -454,7 +476,8 @@ const ProyectosProvider = ({children}) => {
                 eliminarColaborador,
                 completarTarea,
                 buscador,
-                handleBuscador
+                handleBuscador,
+                submitTareasProyecto
             }}
         >
             {children}

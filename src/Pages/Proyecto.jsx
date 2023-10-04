@@ -18,7 +18,7 @@ let socket;
 
 const Proyecto = () => {
   const {id} = useParams()
-  const {obtenerProyecto, proyecto, cargando,handleClickModal,alerta} = useProyectos()
+  const {obtenerProyecto, proyecto, cargando,handleClickModal,alerta,submitTareasProyecto} = useProyectos()
   const admin = useAdmin()
 
   useEffect(() => {
@@ -34,8 +34,10 @@ const Proyecto = () => {
 
   //? Como no tiene dependencias, se va a estar ejecutando todo el tiempo
   useEffect(() => {
-    socket.on('respuesta', (persona) => {
-      console.log(persona)
+    socket.on('tarea agregada', (tareaNueva) => {
+      if(tareaNueva.proyecto === proyecto._id){
+        submitTareasProyecto(tareaNueva)
+      }
     })
   })
   
