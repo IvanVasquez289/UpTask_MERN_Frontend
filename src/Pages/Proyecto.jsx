@@ -18,7 +18,7 @@ let socket;
 
 const Proyecto = () => {
   const {id} = useParams()
-  const {obtenerProyecto, proyecto, cargando,handleClickModal,alerta,submitTareasProyecto} = useProyectos()
+  const {obtenerProyecto, proyecto, cargando,handleClickModal,alerta,submitTareasProyecto,eliminarTareasProyecto} = useProyectos()
   const admin = useAdmin()
 
   useEffect(() => {
@@ -37,6 +37,13 @@ const Proyecto = () => {
     socket.on('tarea agregada', (tareaNueva) => {
       if(tareaNueva.proyecto === proyecto._id){
         submitTareasProyecto(tareaNueva)
+      }
+    })
+
+
+    socket.on('tarea eliminada', tareaEliminada => {
+      if(tareaEliminada.proyecto === proyecto._id){
+        eliminarTareasProyecto(tareaEliminada)
       }
     })
   })
