@@ -26,7 +26,8 @@ const Proyecto = () => {
     alerta,
     submitTareasProyecto,
     eliminarTareasProyecto,
-    editarTareasProyecto
+    editarTareasProyecto,
+    completarTareasProyecto
   } = useProyectos()
   const admin = useAdmin()
 
@@ -59,6 +60,12 @@ const Proyecto = () => {
     socket.on('tarea editada', tareaEditada => {
       if(tareaEditada.proyecto === proyecto._id){
         editarTareasProyecto(tareaEditada)
+      }
+    })
+
+    socket.on('tarea completada', tareaCompletada => {
+      if(tareaCompletada.proyecto._id === proyecto._id){
+        completarTareasProyecto(tareaCompletada)
       }
     })
   })

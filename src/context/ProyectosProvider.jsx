@@ -423,9 +423,10 @@ const ProyectosProvider = ({children}) => {
         try {
             const {data} = await clienteAxios.put(`/tareas/estado/${id}`,{},config)
             console.log(data)
-            const proyectoActualizado = {...proyecto}
-            proyectoActualizado.tareas = proyectoActualizado.tareas.map(tareaState => tareaState._id === data._id ? data : tareaState)
-            setProyecto(proyectoActualizado)
+           
+            // SOCKET IO
+            socket.emit('completar tarea', data)
+           
             setAlerta({})
             setTarea({})
         } catch (error) {
@@ -457,6 +458,12 @@ const ProyectosProvider = ({children}) => {
         proyectoActualizado.tareas = proyectoActualizado.tareas.map(tareaState => tareaState._id == tarea._id ? tarea : tareaState )
         setProyecto(proyectoActualizado)
         
+    }
+
+    const completarTareasProyecto = tarea => {
+        const proyectoActualizado = {...proyecto}
+        proyectoActualizado.tareas = proyectoActualizado.tareas.map(tareaState => tareaState._id === tarea._id ? tarea : tareaState)
+        setProyecto(proyectoActualizado)
     }
      return(
         <ProyectosContext.Provider
@@ -493,7 +500,8 @@ const ProyectosProvider = ({children}) => {
                 handleBuscador,
                 submitTareasProyecto,
                 eliminarTareasProyecto,
-                editarTareasProyecto
+                editarTareasProyecto,
+                completarTareasProyecto
             }}
         >
             {children}
